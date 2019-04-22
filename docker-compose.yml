@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  dynamo:
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
+  graphql.dynamodb.web:
+    image: ${DOCKER_REGISTRY-}graphqldynamodbweb
+    build:
+      context: .
+      dockerfile: GraphQL.DynamoDb.Web/Dockerfile
+    environment:
+    - AWS_ACCESS_KEY_ID=A0B1C2D3E4
+    - AWS_SECRET_ACCESS_KEY=A0B1C2D3E4
