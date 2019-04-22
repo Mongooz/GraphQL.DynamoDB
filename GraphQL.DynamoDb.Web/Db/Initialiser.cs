@@ -72,7 +72,7 @@ namespace GraphQL.DynamoDB.Web.Db
                     {
                         new GlobalSecondaryIndex
                         {
-                            IndexName = "Animals",
+                            IndexName = "Animals_ByGenus",
                             KeySchema = new List<KeySchemaElement>
                             {
                                 new KeySchemaElement

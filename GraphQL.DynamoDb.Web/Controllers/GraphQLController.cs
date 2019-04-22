@@ -32,7 +32,7 @@ namespace GraphQL.DynamoDB.Web.Controllers
 
             if (result.Errors?.Count > 0)
             {
-                return BadRequest();
+                return BadRequest(result.Errors);
             }
 
             return Ok(result);

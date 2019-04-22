@@ -18,16 +18,15 @@ namespace GraphQL.DynamoDB.Schema
 
         private IObjectGraphType GetQuery(IEnumerable<DynamoDBTable> tables, IAmazonDynamoDB dynamoDb)
         {
-            var query = new ObjectGraphType
-            {
-                Name = "Query"
-            };
+            var query = new ObjectGraphType { Name = "Query" };
             foreach (var table in tables)
             {
+                var tableType = new ObjectGraphType { Name = table.TableDescription.TableName };
+
                 var allColumns = table.TableDescription.KeySchema.Select(x => x.AttributeName)
                     .Concat(table.AdditionalColumns.Select(x => x.Item1));
 
-                query.AddField(new FieldType
+                tableType.AddField(new FieldType
                 {
                     Name = "_scan",
                     Arguments = new QueryArguments(table.TableDescription.KeySchema.ToQueryArguments(table.TableDescription.AttributeDefinitions)),
@@ -38,7 +37,7 @@ namespace GraphQL.DynamoDB.Schema
                 });
                 foreach (var index in table.TableDescription.GlobalSecondaryIndexes)
                 {
-                    query.AddField(new FieldType
+                    tableType.AddField(new FieldType
                     {
                         Name = index.IndexName,
                         Arguments = new QueryArguments(index.ToQueryArguments(table.TableDescription.AttributeDefinitions)),
@@ -48,7 +47,7 @@ namespace GraphQL.DynamoDB.Schema
                 }
                 foreach (var index in table.TableDescription.LocalSecondaryIndexes)
                 {
-                    query.AddField(new FieldType
+                    tableType.AddField(new FieldType
                     {
                         Name = index.IndexName,
                         Arguments = new QueryArguments(index.ToQueryArguments(table.TableDescription.AttributeDefinitions)),
@@ -56,6 +55,13 @@ namespace GraphQL.DynamoDB.Schema
                         Resolver = new Resolvers.AsyncFieldResolver<IEnumerable<Dictionary<string, AttributeValue>>>(context => QueryAsync(dynamoDb, ToQuery(context, table.TableDescription.TableName, index)))
                     });
                 }
+
+                query.AddField(new FieldType
+                {
+                    Name = tableType.Name,
+                    ResolvedType = tableType,
+                    Resolver = new Resolvers.FuncFieldResolver<object>(context => context.SubFields)
+                });
             }
             return query;
         }
