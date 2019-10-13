@@ -1,7 +1,7 @@
 ﻿using Amazon.DynamoDBv2.Model;
 using System.Collections.Generic;
 
-namespace GraphQL.DynamoDB.Schema
+namespace GraphQL.DynamoDb.Schema
 {
     public class DynamoDBTable
     {

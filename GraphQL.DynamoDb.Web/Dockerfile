@@ -4,6 +4,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
+COPY ["GraphQL.DynamoDb/GraphQL.DynamoDb.csproj", "GraphQL.DynamoDb/"]
 COPY ["GraphQL.DynamoDb.Web/GraphQL.DynamoDb.Web.csproj", "GraphQL.DynamoDb.Web/"]
 RUN dotnet restore "GraphQL.DynamoDb.Web/GraphQL.DynamoDb.Web.csproj"
 COPY . .

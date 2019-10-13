@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.DynamoDB.Web", "GraphQL.DynamoDb.Web\GraphQL.DynamoDB.Web.csproj", "{0359E094-5048-4363-9D54-264FC220BEFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL.DynamoDb.Web", "GraphQL.DynamoDb.Web\GraphQL.DynamoDb.Web.csproj", "{0359E094-5048-4363-9D54-264FC220BEFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphQL.DynamoDb", "GraphQL.DynamoDb\GraphQL.DynamoDb.csproj", "{381E72EC-8D3D-4415-BA5F-1A8325CA5A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL.DynamoDb", "GraphQL.DynamoDb\GraphQL.DynamoDb.csproj", "{381E72EC-8D3D-4415-BA5F-1A8325CA5A3E}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0D827034-A7F0-41FB-AF49-982D980C8C88}"
 EndProject

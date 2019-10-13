@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GraphQL.DynamoDB.Web.Db;
+using GraphQL.DynamoDb.Web.Db;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace GraphQL.DynamoDB.Web
+namespace GraphQL.DynamoDb.Web
 {
     public class Program
     {
