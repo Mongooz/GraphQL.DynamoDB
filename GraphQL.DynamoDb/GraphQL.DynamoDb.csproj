@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>GraphQL.DynamoDB</AssemblyName>
-    <RootNamespace>GraphQL.DynamoDB</RootNamespace>
+    <AssemblyName>GraphQL.DynamoDb</AssemblyName>
+    <RootNamespace>GraphQL.DynamoDb</RootNamespace>
     <Authors>Mongooz</Authors>
     <Company>Mongooz</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Mongooz/GraphQL.DynamoDB</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Mongooz/GraphQL.DynamoDB</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Mongooz/GraphQL.DynamoDb</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Mongooz/GraphQL.DynamoDb</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

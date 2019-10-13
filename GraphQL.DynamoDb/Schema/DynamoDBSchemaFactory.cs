@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GraphQL.DynamoDB.Schema
+namespace GraphQL.DynamoDb.Schema
 {
     public class DynamoDBSchemaFactory
     {

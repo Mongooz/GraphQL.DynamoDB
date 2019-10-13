@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Amazon.DynamoDBv2;
-using GraphQL.DynamoDB.Web.Db;
+using GraphQL.DynamoDb.Web.Db;
 
-namespace GraphQL.DynamoDB.Web
+namespace GraphQL.DynamoDb.Web
 {
     public class Startup
     {

@@ -7,7 +7,7 @@ using Amazon.DynamoDBv2.Model;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GraphQL.DynamoDB.Web.Db
+namespace GraphQL.DynamoDb.Web.Db
 {
     public class Initialiser
     {

@@ -1,4 +1,4 @@
-﻿using GraphQL.DynamoDB.Schema;
+﻿using GraphQL.DynamoDb.Schema;
 using GraphQL.Http;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphQL.DynamoDB
+namespace GraphQL.DynamoDb
 {
     public static class ServiceExtensions
     {

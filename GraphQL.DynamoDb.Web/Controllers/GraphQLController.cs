@@ -6,7 +6,7 @@ using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GraphQL.DynamoDB.Web.Controllers
+namespace GraphQL.DynamoDb.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
