@@ -9,7 +9,7 @@ namespace GraphQL.DynamoDb.Schema
     public class DynamoDBSchemaFactory
     {
         private readonly ConcurrentBag<DynamoDBTable> _dynamoDbTables = new ConcurrentBag<DynamoDBTable>();
-        public IEnumerable<DynamoDBTable> Tables =>  _dynamoDbTables;
+        public IEnumerable<DynamoDBTable> Tables => _dynamoDbTables;
 
         public void AddTable(TableDescription table, IEnumerable<(string, string)> additionalColumns)
         {
