@@ -1,4 +1,4 @@
-name: Format check
+name: Check code goodness
 
 on: [push]
 
@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: dotnet format
+    - uses: actions/checkout@master
+    - uses: actions/setup-dotnet@master
+      with: 
+        dotnet-version: '3.0.100'
+    - run: dotnet tool restore
+    - name: Check formatting
+      run: dotnet-format
