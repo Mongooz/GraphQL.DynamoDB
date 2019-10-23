@@ -9,6 +9,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
-    - run: dotnet tool restore
+    - run: dotnet tool install -g dotnet-format
     - name: Check formatting
       run: dotnet format
