@@ -16,4 +16,3 @@ jobs:
     - run: dotnet format --check --dry-run --workspace GraphQL.DynamoDb.sln
     - run: dotnet restore GraphQL.DynamoDb.sln
     - run: dotnet build GraphQL.DynamoDb.sln
-    - run: dotnet pack GraphQL.DynamoDb.sln
