@@ -9,7 +9,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@master
-    - name: Check formatting
-      run: |
-        dotnet tool install -g dotnet-format
-        dotnet format
+    - uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: '3.0.100'
+    - run: dotnet tool restore
+    - run: dotnet format --check --dry-run
+    - run: dotnet restore
+    - run: dotnet build
+    - run: dotnet pack
