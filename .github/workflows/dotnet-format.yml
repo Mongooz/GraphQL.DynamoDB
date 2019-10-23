@@ -14,6 +14,6 @@ jobs:
         dotnet-version: '3.0.100'
     - run: dotnet tool restore
     - run: dotnet format --check --dry-run --workspace GraphQL.DynamoDb.sln
-    - run: dotnet restore
-    - run: dotnet build
-    - run: dotnet pack
+    - run: dotnet restore --workspace GraphQL.DynamoDb.sln
+    - run: dotnet build --workspace GraphQL.DynamoDb.sln
+    - run: dotnet pack --workspace GraphQL.DynamoDb.sln
