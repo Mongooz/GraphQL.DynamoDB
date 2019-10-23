@@ -11,7 +11,7 @@ namespace GraphQL.DynamoDb.Schema
 {
     internal static class GraphQLExtensions
     {
-        private static FieldType AddDynamoDBField(this ObjectGraphType indexType, string attributeName, string attributeType)
+        private static FieldType AddDynamoDBField(this ComplexGraphType<Object> indexType, string attributeName, string attributeType)
         {
             switch (attributeType)
             {
@@ -88,6 +88,26 @@ namespace GraphQL.DynamoDb.Schema
             }
 
             return type;
+        }
+
+        public static InputObjectGraphType ToInputObjectGraphType(this IEnumerable<AttributeDefinition> attributes, string name, IEnumerable<(string, string)> additionalColumns)
+        {
+            var input = new InputObjectGraphType { Name = name };
+
+            foreach (var attribute in attributes)
+            {
+                input.AddDynamoDBField(attribute.AttributeName, attribute.AttributeType);
+            }
+
+            if (additionalColumns != null)
+            {
+                foreach (var attribute in additionalColumns.Where(attribute => attributes.Any(_ => _.AttributeName == attribute.Item1) == false))
+                {
+                    input.AddDynamoDBField(attribute.Item1, attribute.Item2);
+                }
+            }
+
+            return input;
         }
     }
 }

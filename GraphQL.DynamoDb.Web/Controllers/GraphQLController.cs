@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GraphQL.DynamoDb.Web.Controllers
 {
@@ -27,12 +30,12 @@ namespace GraphQL.DynamoDb.Web.Controllers
                 x.Schema = _schema;
                 x.OperationName = query.OperationName;
                 x.Query = query.Query;
-                x.Inputs = query.Variables;
+                x.Inputs = query.Variables.ToInputs();
             });
 
             if (result.Errors?.Count > 0)
             {
-                return BadRequest(result.Errors);
+                return BadRequest(result);
             }
 
             return Ok(result);
@@ -42,7 +45,8 @@ namespace GraphQL.DynamoDb.Web.Controllers
         {
             public string OperationName { get; set; }
             public string Query { get; set; }
-            public Inputs Variables { get; set; }
+            public string Mutation { get; set; }
+            public JObject Variables { get; set; }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace GraphQL.DynamoDb.Schema
         public DynamoDBSchema(DynamoDBSchemaFactory factory, IAmazonDynamoDB dynamoDb)
         {
             Query = GetQuery(factory.Tables, dynamoDb);
+            Mutation = GetMutation(factory.Tables, dynamoDb);
         }
 
         private IObjectGraphType GetQuery(IEnumerable<DynamoDBTable> tables, IAmazonDynamoDB dynamoDb)
@@ -66,6 +67,27 @@ namespace GraphQL.DynamoDb.Schema
             return query;
         }
 
+        private IObjectGraphType GetMutation(IEnumerable<DynamoDBTable> tables, IAmazonDynamoDB dynamoDb)
+        {
+            var mutation = new ObjectGraphType { Name = "Mutation" };
+            foreach (var table in tables)
+            {
+                var allColumns = table.TableDescription.KeySchema.Select(x => x.AttributeName)
+                    .Concat(table.AdditionalColumns.Select(x => x.Item1));
+
+                var input = table.TableDescription.AttributeDefinitions.ToInputObjectGraphType($"{table.TableDescription.TableName}Input", table.AdditionalColumns);
+                mutation.AddField(new FieldType
+                {
+                    Name = $"create{table.TableDescription.TableName}",
+                    Arguments = new QueryArguments(new QueryArgument(input) { Name = table.TableDescription.TableName }) ,
+                    ResolvedType = new ListGraphType(table.TableDescription.AttributeDefinitions.ToObjectGraphType($"create{table.TableDescription.TableName}", table.AdditionalColumns)),
+                    Resolver = new Resolvers.AsyncFieldResolver<Dictionary<string, AttributeValue>>(context =>
+                        PutItemAsync(dynamoDb, table.TableDescription.TableName, context.Arguments.ToDictionary(arg => arg.Key, arg => new AttributeValue(arg.Value?.ToString())), context.SubFields.Select(field => ToKeySchema(field.Key, allColumns)).ToList()))
+                });
+            }
+            return mutation;
+        }
+
         private string ToKeySchema(string argumentKey, IEnumerable<string> keySchema)
         {
             var fromSchema = keySchema.FirstOrDefault(key => String.Equals(key, argumentKey, StringComparison.InvariantCultureIgnoreCase));
@@ -113,6 +135,19 @@ namespace GraphQL.DynamoDb.Schema
             var results = await dynamoDb.ScanAsync(tableName, attributesToGet);
 
             return results?.Items?.ToList();
+        }
+
+        private async Task<Dictionary<string, AttributeValue>> PutItemAsync(IAmazonDynamoDB dynamoDb, string tableName, Dictionary<string, AttributeValue> item, List<string> attributesToGet)
+        {
+            try
+            {
+                var result = await dynamoDb.PutItemAsync(tableName, item, ReturnValue.ALL_NEW);
+                return result.Attributes;
+            }
+            catch (Exception e)
+            {
+                return new Dictionary<string, AttributeValue> { { "order", new AttributeValue { S = e.Message } } };
+            }
         }
     }
 }
