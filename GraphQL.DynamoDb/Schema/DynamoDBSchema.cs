@@ -72,7 +72,7 @@ namespace GraphQL.DynamoDb.Schema
             return fromSchema ?? argumentKey;
         }
 
-        private KeyValuePair<string,object> GetArgument(KeyValuePair<string, object> argument, List<KeySchemaElement> keySchema)
+        private KeyValuePair<string, object> GetArgument(KeyValuePair<string, object> argument, List<KeySchemaElement> keySchema)
         {
             return new KeyValuePair<string, object>(ToKeySchema(argument.Key, keySchema.Select(key => key.AttributeName)), argument.Value);
         }
